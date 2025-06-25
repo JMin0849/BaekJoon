@@ -2,21 +2,16 @@ import java.util.*;
 
 class Solution {
     public int[] solution(int[] arr, int[] query) {
-        int[] answer = Arrays.copyOf(arr, arr.length);
-
+        int start = 0;
+        int end = arr.length - 1;
         for (int i = 0; i < query.length; i++) {
-            if (answer.length == 0) break;
             if (i % 2 == 0) {
-                // 0 ~ query[i] (포함)
-                answer = Arrays.copyOfRange(answer, 0, Math.min(query[i] + 1, 
-                                                                answer.length));
+                end = start + query[i] - 1;
             } else {
-                // query[i] ~ 끝까지 (포함)
-                answer = Arrays.copyOfRange(answer, Math.min(query[i], answer.length),
-                                            answer.length);
+                start += query[i];
             }
         }
 
-        return answer;
+        return Arrays.copyOfRange(arr, start, end + 2);
     }
 }
